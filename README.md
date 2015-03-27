@@ -1,6 +1,15 @@
-frontend-nanodegree-arcade-game
+Udacity Frogger Game
 ===============================
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+### Instructions
 
-for self-checking their submission.
+
+The game starts automatically when the web page finish loading.The player controls the boy who is standing
+at the grass lawn when the game starts. The boy could be controlled by the up, down, left and right arrow
+keys on keyboard, each of which will make the boy take one step to the corresponding direction.
+
+The purpose of the game is to make the boy walk across the stone pavement to the river without getting hit by bugs.
+If the boy get hit by one of the bugs, his position will be reset to the starting point and the player will have to start
+over again.
+
+
