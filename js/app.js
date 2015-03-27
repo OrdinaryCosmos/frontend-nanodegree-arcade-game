@@ -12,17 +12,19 @@ var Enemy = function() {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    var range=Math.random()*300
 
-    var posiran=Math.random()*range;
+    /* In order to make bug move at a different speed, a maximum pace is set at 300, and the speed the bug is moving
+    at is a random number between 0-300.
+     */
+
+    var range=Math.random()*300;
+
+    var posiran=Math.random()*range;//random is used two times to make its move more unpredictable.
 
     this.x+=dt*posiran;
-    if (this.x>=505) {
+    if (this.x>=505) {//if the bug move over the right edge of the frame, it will start from left side again
         this.x=0;
-        this.y=Math.random()*250;
+        this.y=Math.random()*250;//its reappearance's y position should be  random.
     }
 };
 
@@ -32,11 +34,12 @@ Enemy.prototype.render = function() {
 };
 
 var Player = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+    // Variables applied to the playable character,
+
     this.x=200;
-    this.y=420;
+    this.y=420;//character's starting point
     this.sprite = 'images/char-boy.png';
+
 };
 
 Player.prototype.render = function() {
@@ -44,20 +47,14 @@ Player.prototype.render = function() {
 };
 
 
+//the update function decides how the character interact with other elements of the game
+Player.prototype.update = function() {
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-Player.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameterx
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    if (this.y<=0 || this.y >=421) {
+    if (this.y<=0 || this.y >=421) {//the character can't move beyond the frame, once he reaches the edge, he will be reset to the starting point
         this.y=420;
         this.x=200;
     }
-    for (var j in allEnemies) {
+    for (var j in allEnemies) {// if sany of the enemies clash with the character, he will be reset to the starting point.
         if (Math.abs(allEnemies[j].x-this.x)<50 && Math.abs(allEnemies[j].y-this.y)<50) {
             this.x=200;
             this.y=420;
@@ -66,7 +63,7 @@ Player.prototype.update = function(dt) {
 };
 
 Player.prototype.handleInput=function(keycode){
-
+// how the character moves in response to the keyboard input.
 
     if (keycode==='left') {
         this.x-=50;
@@ -80,10 +77,11 @@ Player.prototype.handleInput=function(keycode){
         this.y+=50;
     }
 };
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
+
+// Now instantiate the objects.
+//  all enemy objects are put in an array called allEnemies
+//  the player object is put in a variable called player
 player=new Player();
 allEnemies=[];
 for (var i = 0, len = 5 ; i < len; i++) {
@@ -93,10 +91,10 @@ for (var i = 0, len = 5 ; i < len; i++) {
     enemy.x=0-xnum;
     enemy.y=ynum;
     allEnemies.push(enemy);
-};
+}
 
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     e.preventDefault();
     var allowedKeys = {
