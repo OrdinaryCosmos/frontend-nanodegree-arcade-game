@@ -3,6 +3,7 @@ Udacity Frogger Game
 
 ### Instructions
 
+Click the index.html to load the page.
 
 The game starts automatically when the web page finish loading.The player controls the boy who is standing
 at the grass lawn when the game starts. The boy could be controlled by the up, down, left and right arrow
