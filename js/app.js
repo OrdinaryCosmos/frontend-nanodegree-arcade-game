@@ -9,8 +9,11 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+ * Update the enemy's position, required method for game
+ * Parameter: dt, a time delta between ticks
+ * @param dt
+ */
 Enemy.prototype.update = function(dt) {
 
     /* In order to make bug move at a different speed, a maximum pace is set at 300, and the speed the bug is moving
@@ -47,7 +50,11 @@ Player.prototype.render = function() {
 };
 
 
-//the update function decides how the character interact with other elements of the game
+/**
+ * Update the player's position,reset player's position when he walks over the edge of the frame
+ * Parameter: dt, a time delta between ticks
+ * @param dt
+ */
 Player.prototype.update = function() {
 
     if (this.y<=0 || this.y >=421) {//the character can't move beyond the frame, once he reaches the edge, he will be reset to the starting point
@@ -62,26 +69,52 @@ Player.prototype.update = function() {
     }
 };
 
-Player.prototype.handleInput=function(keycode){
-// how the character moves in response to the keyboard input.
-
-    if (keycode==='left') {
-        this.x-=50;
+var Movement = {
+    Direction: {
+        LEFT: "left",
+        RIGHT: "right",
+        UP: "up",
+        DOWN: "down"
+    },
+    Displacement: {
+        alongX: 50,
+        alongY: 50
     }
-    else if (keycode==='right') {
-        this.x+=50;
+};
 
-    } else if (keycode==='up') {
-        this.y-=50;
-    }else if (keycode==='down'){
-        this.y+=50;
+/**
+ * Update the player's position,according to which key is pressed
+ * Parameter: move, a string to mark the direction of the movement.
+ * @param move
+ */
+Player.prototype.handleInput = function(move) {
+    switch (move) {
+        case Movement.Direction.UP:
+            this.y -= Movement.Displacement.alongY;
+            break;
+
+        case Movement.Direction.DOWN:
+            this.y += Movement.Displacement.alongY;
+            break;
+
+        case Movement.Direction.RIGHT:
+            if (this.x + Movement.Displacement.alongX<=435) {
+                this.x += Movement.Displacement.alongX;
+            }
+            break;
+
+        case Movement.Direction.LEFT:
+            if (this.x - Movement.Displacement.alongX>=0) {
+                this.x -= Movement.Displacement.alongX;
+            }
+            break;
     }
 };
 
 
-// Now instantiate the objects.
-//  all enemy objects are put in an array called allEnemies
-//  the player object is put in a variable called player
+/*Now instantiate the objects.
+ all enemy objects are put in an array called allEnemies
+the player object is put in a variable called player*/
 player=new Player();
 allEnemies=[];
 for (var i = 0, len = 5 ; i < len; i++) {
